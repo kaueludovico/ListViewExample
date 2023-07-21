@@ -8,7 +8,7 @@ import com.zallpy.listviewexample.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var adapter: ArrayAdapter<Items>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +31,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun populateListView() {
-        // Inicializando o adapter
-        adapter = ArrayAdapter(this, R.layout.res_list_item)
+
+        // Criando itens da lista
+        val items = mutableListOf(
+            Items(R.drawable.home, "Título 1", "Descrição 1"),
+            Items(R.drawable.home, "Título 2", "Descrição 2")
+        )
+
+        // Inicializando e populando o adapter
+        adapter = ItemAdapter(this, items)
         // A variável adapter precisou ser inicializada aqui neste bloco de código
         // devido a anoteção lateinit em sua criação (linha 13)
         // lembrando que o lateinit indica que a inicialização será feita antes do uso da variável porém, após a sua criação
-
-        // Populando adapter
-        val items = arrayOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-        adapter.addAll(*items)
 
         // Populando ListView com o Adapter
         binding.listView.adapter = adapter
